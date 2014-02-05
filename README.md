@@ -3,9 +3,24 @@ Quickstarter for DBpedia Spotlight models
 
 You can use this tool for creating models of DBpedia Spotlight in your language.
 
+
+    #Prepare the system:
+    ./prepare.sh
+    
+    #Create a Dutch model on Hadoop:
+    ./index_db.sh -o nl wdir nl_NL nl/stopwords.list Dutch models/nl
+    
+    #Create a Dutch model on the current machine (without Hadoop):
+    ./index_db.sh -l -o nl wdir nl_NL nl/stopwords.list Dutch models/nl
+    
+
+
+
 ## Requirements
 
 This script requires Apache Hadoop and Apache Pig, for more information see [this guide](https://github.com/dbpedia-spotlight/dbpedia-spotlight/wiki/Internationalization-%28DB-backed-core%29). Tested with **Apache Pig version 0.10.0** and **Hadoop 1.1.0**, as well as the default Pig and Hadoop on AWS.
+
+Alternatively, indexing can be run in local mode.
 
 ## Usage
 
