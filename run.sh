@@ -2,12 +2,12 @@
 
 echo "Indexing..."
 #Using OpenNLP models:
-./index_db.sh -o en wdir en_US en/stopwords.list English models/en
-./index_db.sh -o de wdir de_DE de/stopwords.list German  models/de
-./index_db.sh -o nl wdir nl_NL nl/stopwords.list Dutch   models/nl
-./index_db.sh -o sv wdir sv_SE sv/stopwords.list Swedish models/sv
-./index_db.sh -o pt wdir pt_BR pt/stopwords.list Portuguese models/pt
-./index_db.sh -o da wdir da_DK da/stopwords.list Danish models/da
+./index_db.sh wdir en_US en/stopwords.list English models/en
+./index_db.sh wdir de_DE de/stopwords.list German  models/de
+./index_db.sh wdir nl_NL nl/stopwords.list Dutch   models/nl
+./index_db.sh wdir sv_SE sv/stopwords.list Swedish models/sv
+./index_db.sh wdir pt_BR pt/stopwords.list Portuguese models/pt
+./index_db.sh wdir da_DK da/stopwords.list Danish models/da
 
 #No OpenNLP models:
 ./index_db.sh wdir fr_FR fr/stopwords.list French models/fr
