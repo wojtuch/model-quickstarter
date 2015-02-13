@@ -13,12 +13,34 @@ You can use this tool for creating models of DBpedia Spotlight in your language.
     #Create a Dutch model on the current machine (without Hadoop):
     ./index_db.sh -l -o nl wdir nl_NL nl/stopwords.list Dutch models/nl
     
+## Datasets
+
+You can find pre-built datasets created using the model-quickstarter here:
+
+- [Pre-built Spotlight models for multiple languages](http://spotlight.sztaki.hu/downloads/)
+- [Raw counts for multiple languages](http://spotlight.sztaki.hu/downloads/raw)
+
+
+## Citation
+
+If you use the current (statistical version) of DBpedia Spotlight or the data/models created using this repository, please cite the following paper.
+
+```bibtex
+@inproceedings{isem2013daiber,
+  title = {Improving Efficiency and Accuracy in Multilingual Entity Extraction},
+  author = {Joachim Daiber and Max Jakob and Chris Hokamp and Pablo N. Mendes},
+  year = {2013},
+  booktitle = {Proceedings of the 9th International Conference on Semantic Systems (I-Semantics)}
+}
+```
+
 
 ## Requirements
 
 This script requires Apache Hadoop and Apache Pig, for more information see [this guide](https://github.com/dbpedia-spotlight/dbpedia-spotlight/wiki/Internationalization-%28DB-backed-core%29). Tested with **Apache Pig version 0.10.0** and **Hadoop 1.1.0**, as well as the default Pig and Hadoop on AWS.
 
 Alternatively, indexing can be run in local mode.
+
 
 ## Usage
 
