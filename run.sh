@@ -14,4 +14,4 @@ echo "Indexing..."
 ./index_db.sh wdir it_IT it/stopwords.list Italian models/it
 ./index_db.sh wdir hu_HU hu/stopwords.list Hungarian models/hu
 ./index_db.sh wdir tr_TR tr/stopwords.list Turkish models/tr
-./index_db.sh wdir ru_RU tr/stopwords.list Russian models/ru
+./index_db.sh wdir ru_RU ru/stopwords.list Russian models/ru
