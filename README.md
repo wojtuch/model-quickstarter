@@ -5,6 +5,11 @@ Quickstarter for DBpedia Spotlight models
 
 This tool now uses the wikistatsextractor by the great folks over at [DiffBot](https://www.diffbot.com/). This means: no more Hadoop and Pig! Running the biggest model (English) takes around 2h on a single machine with around 32GB of RAM. We recommend running this script on an SSD with around 100GB of free space.
 
+### Requirements
+
+- Git
+- Maven 3
+
 ## Spotlight model creation
 
 You can use this tool for creating models of DBpedia Spotlight in your language.
