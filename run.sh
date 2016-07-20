@@ -16,3 +16,4 @@ echo "Indexing..."
 ./index_db.sh wdir cs_CZ cs/stopwords.list None models/cs
 ./index_db.sh wdir hu_HU hu/stopwords.list Hungarian models/hu
 ./index_db.sh wdir ru_RU ru/stopwords.list Russian models/ru
+./index_db.sh wdir zh_CN zh/stopwords.list None models/zh
