@@ -9,6 +9,7 @@ echo "Indexing..."
 ./index_db.sh -b fr/ignore.list wdir fr_FR fr/stopwords.list French models/fr
 ./index_db.sh -b es/ignore.list wdir es_ES es/stopwords.list Spanish models/es
 ./index_db.sh -b tr/ignore.list wdir tr_TR tr/stopwords.list Turkish models/tr
+./index_db.sh -b no/ignore.list wdir no_NO no/stopwords.list Norwegian models/no
 ./index_db.sh wdir it_IT it/stopwords.list Italian models/it
 ./index_db.sh wdir da_DK da/stopwords.list Danish models/da
 ./index_db.sh wdir ja_JP ja/stopwords.list None models/ja
