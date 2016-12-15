@@ -1,7 +1,7 @@
-[![Gitter](https://badges.gitter.im/dbpedia-spotlight/model-quickstarter.svg)](https://gitter.im/dbpedia-spotlight/model-quickstarter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-
 Quickstarter for DBpedia Spotlight models
 ===================================================
+
+[![Gitter](https://badges.gitter.im/dbpedia-spotlight/model-quickstarter.svg)](https://gitter.im/dbpedia-spotlight/model-quickstarter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ## Update, January 2016
 
