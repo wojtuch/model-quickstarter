@@ -28,8 +28,8 @@ You can use this tool for creating models of DBpedia Spotlight in your language.
 
 You can find pre-built datasets created using the model-quickstarter here:
 
-- [Pre-built Spotlight models for multiple languages](http://spotlight.sztaki.hu/downloads/)
-- [Raw counts for multiple languages](http://spotlight.sztaki.hu/downloads/latest_data)
+- [Pre-built Spotlight models for multiple languages](http://www.dbpedia-spotlight.com/latest_models/)
+- [Raw counts for multiple languages](http://www.dbpedia-spotlight.com/latest_data/)
 
 
 ## Citation
