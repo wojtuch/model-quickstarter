@@ -17,13 +17,30 @@ This tool now uses the wikistatsextractor by the great folks over at [DiffBot](h
 You can use this tool for creating models of DBpedia Spotlight in your language.
 
 
-    #Prepare the system:
-    ./prepare.sh
-    
-    #Create a Dutch model:
-    ./index_db.sh -o nl wdir nl_NL nl/stopwords.list Dutch models/nl
+* docker run -it dbpediaspotlight/model-quickstarter
+* cd model-quickstarter/
+* ./prepare.sh
 
-    
+and then the command to the target model
+
+EN - ./index_db.sh -b en/ignore.list wdir en_US en/stopwords.list English models/en
+DE - ./index_db.sh -b de/ignore.list wdir de_DE de/stopwords.list German models/de
+NL -./index_db.sh -b nl/ignore.list wdir nl_NL nl/stopwords.list Dutch models/nl
+SV - ./index_db.sh -b sv/ignore.list wdir sv_SE sv/stopwords.list Swedish models/sv
+PT - ./index_db.sh -b pt/ignore.list wdir pt_BR pt/stopwords.list Portuguese models/pt
+FR - ./index_db.sh -b fr/ignore.list wdir fr_FR fr/stopwords.list French models/fr
+ES - ./index_db.sh -b es/ignore.list wdir es_ES es/stopwords.list Spanish models/es
+TR - ./index_db.sh -b tr/ignore.list wdir tr_TR tr/stopwords.list Turkish models/tr
+NO - ./index_db.sh -b no/ignore.list wdir no_NO no/stopwords.list Norwegian models/no
+IT -./index_db.sh wdir it_IT it/stopwords.list Italian models/it
+DA -./index_db.sh wdir da_DK da/stopwords.list Danish models/da
+JA - ./index_db.sh wdir ja_JP ja/stopwords.list None models/ja
+CS - ./index_db.sh wdir cs_CZ cs/stopwords.list None models/cs
+HU - ./index_db.sh wdir hu_HU hu/stopwords.list Hungarian models/hu
+RU - ./index_db.sh wdir ru_RU ru/stopwords.list Russian models/ru
+ZH - ./index_db.sh wdir zh_CN zh/stopwords.list None models/zh
+
+
 ## Datasets
 
 You can find pre-built datasets created using the model-quickstarter here:
