@@ -17,7 +17,7 @@ This tool now uses the wikistatsextractor by the great folks over at [DiffBot](h
 You can use this tool for creating models of DBpedia Spotlight in your language.
 
 
-* docker run -it dbpediaspotlight/model-quickstarter
+* docker run -it dbpediaspotlight/model-quickstarter bash
 * cd model-quickstarter/
 * ./prepare.sh
 
