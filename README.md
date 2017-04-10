@@ -56,6 +56,15 @@ RU - ./index_db.sh wdir ru_RU ru/stopwords.list Russian models/ru
 ZH - ./index_db.sh wdir zh_CN zh/stopwords.list None models/zh
 
 
+If you want to generate the models outside the container, just map volumes for the folders /model-quickstarter/wdir, /model-quickstarter/data and /model-quickstarter/models.
+
+E.g:
+
+```
+docker run -v /home/user/data/model/wdir:/model-quickstarter/wdir -v /home/user/data/model/data:/model-quickstarter/data -v /home/user/data/model/models:/model-quickstarter/models -it dbpediaspotlight/model-quickstarter bash
+```
+
+
 ## Datasets
 
 You can find pre-built datasets created using the model-quickstarter here:
