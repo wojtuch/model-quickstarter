@@ -69,9 +69,10 @@ docker run -v /home/user/data/model/wdir:/model-quickstarter/wdir -v /home/user/
 
 You can find pre-built datasets created using the model-quickstarter here:
 
-- [Pre-built Spotlight models for multiple languages](http://www.dbpedia-spotlight.com/latest_models/)
-- [Raw counts for multiple languages](http://www.dbpedia-spotlight.com/latest_data/)
+- [Pre-built Spotlight models for English](http://downloads.dbpedia-spotlight.org/en/2016-04/model/)
+- [Raw counts for English](http://downloads.dbpedia-spotlight.org/en/2016-04/model/raw/)
 
+For other languages, just visit <http://downloads.dbpedia-spotlight.org>
 
 ## Citation
 
