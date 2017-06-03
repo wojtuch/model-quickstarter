@@ -1,4 +1,4 @@
-FROM java:openjdk-7
+FROM java:openjdk-8
 
 MAINTAINER  DBpedia Spotlight Team <dbp-spotlight-developers@lists.sourceforge.net>
 
