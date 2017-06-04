@@ -166,6 +166,7 @@ if [ -d dbpedia-spotlight ]; then
 else
     echo "Setting up DBpedia Spotlight..."
     git clone --depth 1 https://github.com/dbpedia-spotlight/dbpedia-spotlight-model
+    mv dbpedia-spotlight-model dbpedia-spotlight
     cd dbpedia-spotlight
     mvn -T 1C -q clean install
 fi
