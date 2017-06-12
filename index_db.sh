@@ -81,10 +81,17 @@ if [ -z "$WIKI_MIRROR" ]; then
   WIKI_MIRROR="https://dumps.wikimedia.org/"
 fi
 
-if [ "$eval" == "false" ]; then
-  curl -# "$WIKI_MIRROR/${LANGUAGE}wiki/latest/${LANGUAGE}wiki-latest-pages-articles.xml.bz2" | bzcat > $WDIR/dump.xml
+WP_DOWNLOAD_FILE=$WDIR/dump.xml
+echo Checking for wikipedia dump at $WP_DOWNLOAD_FILE
+if [ -f "$WP_DOWNLOAD_FILE" ]; then
+  echo File exists.
 else
-  curl -# "$WIKI_MIRROR/${LANGUAGE}wiki/latest/${LANGUAGE}wiki-latest-pages-articles.xml.bz2" | bzcat | python $BASE_DIR/scripts/split_train_test.py 1200 $WDIR/heldout.txt > $WDIR/dump.xml
+  echo Downloading wikipedia dump.
+  if [ "$eval" == "false" ]; then
+    curl -# "$WIKI_MIRROR/${LANGUAGE}wiki/latest/${LANGUAGE}wiki-latest-pages-articles.xml.bz2" | bzcat > $WDIR/dump.xml
+  else
+    curl -# "$WIKI_MIRROR/${LANGUAGE}wiki/latest/${LANGUAGE}wiki-latest-pages-articles.xml.bz2" | bzcat | python $BASE_DIR/scripts/split_train_test.py 1200 $WDIR/heldout.txt > $WDIR/dump.xml
+  fi
 fi
 
 cd $WDIR
