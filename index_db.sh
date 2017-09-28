@@ -113,13 +113,13 @@ echo "Creating DBpedia nt files..."
 cd $BASE_WDIR
 
 if [ -d extraction-framework ]; then
-    echo "Updating DBpedia Spotlight..."
+    echo "Updating DBpedia Extraction Framework..."
     cd extraction-framework
     git reset --hard HEAD
     git pull
     mvn install
 else
-    echo "Setting up DEF..."
+    echo "Setting up DBpedia Extraction Framework..."
     git clone git://github.com/dbpedia/extraction-framework.git
     cd extraction-framework
     mvn install
@@ -144,39 +144,57 @@ uri-policy.uri=uri:en; generic:en; xml-safe-predicates:*
 format.nt.gz=n-triples;uri-policy.uri
 EOF
 
-if [[ ",ga,ar,be,bg,bn,ced,cs,cy,da,eo,et,fa,fi,gl,hi,hr,hu,id,ja,lt,lv,mk,mt,sk,sl,sr,tr,ur,vi,war,zh," == *",$LANGUAGE,"* ]]; then #Languages with no disambiguation definitions
-     echo "extractors=.RedirectExtractor,.MappingExtractor" >> dbpedia.properties
-else
-     echo "extractors=.RedirectExtractor,.DisambiguationExtractor,.MappingExtractor" >> dbpedia.properties
-fi
+
+###
+### Set up the extractors here
+###
+###
+# if [[ ",ga,ar,be,bg,bn,ced,cs,cy,da,eo,et,fa,fi,gl,hi,hr,hu,id,ja,lt,lv,mk,mt,sk,sl,sr,tr,ur,vi,war,zh," == *",$LANGUAGE,"* ]]; then #Languages with no disambiguation definitions
+#      echo "extractors=.RedirectExtractor,.MappingExtractor" >> dbpedia.properties
+# else
+#      echo "extractors=.RedirectExtractor,.DisambiguationExtractor,.MappingExtractor" >> dbpedia.properties
+# fi
+
+###
+## Should we do it for every language or maybe a generic line would suffice?
+# echo "extractors=.DisambiguationExtractor,.RedirectExtractor,.MappingExtractor,.TopicalConceptsExtractor" >> dbpedia.properties
+###
+
+echo "extractors.ar=.DisambiguationExtractor,.RedirectExtractor,.MappingExtractor,.TopicalConceptsExtractor" >> dbpedia.properties
+echo "extractors.tr=.DisambiguationExtractor,.RedirectExtractor,.MappingExtractor,.TopicalConceptsExtractor" >> dbpedia.properties
+echo "extractors.ja=.DisambiguationExtractor,.RedirectExtractor,.MappingExtractor,.TopicalConceptsExtractor" >> dbpedia.properties
+echo "extractors.zh=.DisambiguationExtractor,.RedirectExtractor,.MappingExtractor,.TopicalConceptsExtractor" >> dbpedia.properties
+echo "extractors.ko=.DisambiguationExtractor,.RedirectExtractor,.MappingExtractor,.TopicalConceptsExtractor" >> dbpedia.properties
 
 ../run extraction dbpedia.properties
 
-zcat $dumpdir/${LANGUAGE}wiki-${dumpdate}-instance-types*.nt.gz > $WDIR/instance_types.nt
-zcat $dumpdir/${LANGUAGE}wiki-${dumpdate}-disambiguations-unredirected.nt.gz > $WDIR/disambiguations.nt
-zcat $dumpdir/${LANGUAGE}wiki-${dumpdate}-redirects.nt.gz > $WDIR/redirects.nt
+if [ ! -f $WDIR/instance_types.nt ]; then
+    echo "Instance types not found, unpacking extracted ones."
+    zcat $dumpdir/${LANGUAGE}wiki-${dumpdate}-instance-types*.nt.gz > $WDIR/instance_types.nt
+fi
 
-rm -Rf $dumpdir
+if [ ! -f $WDIR/disambiguations.nt ]; then
+    echo "Disambiguations types not found, unpacking extracted ones."
+    zcat $dumpdir/${LANGUAGE}wiki-${dumpdate}-disambiguations-unredirected.nt.gz > $WDIR/disambiguations.nt
+fi
+
+if [ ! -f $WDIR/redirects.nt ]; then
+    echo "Redirects not found, unpacking extracted ones."
+    zcat $dumpdir/${LANGUAGE}wiki-${dumpdate}-redirects.nt.gz > $WDIR/redirects.nt
+fi
+
+#rm -Rf $dumpdir
 
 ########################################################################################################
 # Setting up Spotlight:
 ########################################################################################################
 
 cd $BASE_WDIR
-
-if [ -d dbpedia-spotlight ]; then
-    echo "Updating DBpedia Spotlight..."
-    cd dbpedia-spotlight
-    git reset --hard HEAD
-    git pull
-    mvn -T 1C -q clean install
-else
-    echo "Setting up DBpedia Spotlight..."
-    git clone --depth 1 https://github.com/dbpedia-spotlight/dbpedia-spotlight-model
-    mv dbpedia-spotlight-model dbpedia-spotlight
-    cd dbpedia-spotlight
-    mvn -T 1C -q clean install
-fi
+rm -Rf dbpedia-spotlight
+echo "Setting up DBpedia Spotlight..."
+git clone --depth 1 git@gitlab.fokus.fraunhofer.de:wlu/spotlight-multilanguage.git dbpedia-spotlight
+cd dbpedia-spotlight
+mvn -T 1C -q clean install
 
 
 ########################################################################################################
@@ -200,13 +218,13 @@ if [ "$blacklist" != "false" ]; then
   grep -v -f $blacklist $WDIR/uriCounts_all > $WDIR/uriCounts
 fi
 
-echo "Finished wikistats extraction. Cleaning up..."
-rm -f $WDIR/dump.xml
+# echo "Finished wikistats extraction. Cleaning up..."
+# #rm -f $WDIR/dump.xml
 
 
-########################################################################################################
-# Building Spotlight model:
-########################################################################################################
+# ########################################################################################################
+# # Building Spotlight model:
+# ########################################################################################################
 
 #Create the model:
 cd $BASE_WDIR/dbpedia-spotlight
@@ -217,13 +235,13 @@ if [ "$eval" == "true" ]; then
   mvn -pl eval exec:java -Dexec.mainClass=org.dbpedia.spotlight.evaluation.EvaluateSpotlightModel -Dexec.args="$TARGET_DIR $WDIR/heldout.txt" > $TARGET_DIR/evaluation.txt
 fi
 
-curl https://raw.githubusercontent.com/dbpedia-spotlight/model-quickstarter/master/model_readme.txt > $TARGET_DIR/README.txt
-curl "$WIKI_MIRROR/${LANGUAGE}wiki/latest/${LANGUAGE}wiki-latest-pages-articles.xml.bz2-rss.xml" | grep link | sed -e 's/^.*<link>//' -e 's/<[/]link>.*$//' | uniq >> $TARGET_DIR/README.txt
+# curl https://raw.githubusercontent.com/dbpedia-spotlight/model-quickstarter/master/model_readme.txt > $TARGET_DIR/README.txt
+# curl "$WIKI_MIRROR/${LANGUAGE}wiki/latest/${LANGUAGE}wiki-latest-pages-articles.xml.bz2-rss.xml" | grep link | sed -e 's/^.*<link>//' -e 's/<[/]link>.*$//' | uniq >> $TARGET_DIR/README.txt
 
 
-echo "Collecting data..."
-cd $BASE_DIR
-mkdir -p data/$LANGUAGE && mv $WDIR/*Counts data/$LANGUAGE
-gzip $WDIR/*.nt &
+# echo "Collecting data..."
+# cd $BASE_DIR
+# mkdir -p data/$LANGUAGE && mv $WDIR/*Counts data/$LANGUAGE
+#gzip $WDIR/*.nt &
 
-set +e
+# set +e
