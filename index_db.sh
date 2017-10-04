@@ -110,22 +110,7 @@ fi
 
 #Download:
 echo "Creating DBpedia nt files..."
-cd $BASE_WDIR
-
-if [ -d extraction-framework ]; then
-    echo "Updating DBpedia Extraction Framework..."
-    cd extraction-framework
-    git reset --hard HEAD
-    git pull
-    mvn install
-else
-    echo "Setting up DBpedia Extraction Framework..."
-    git clone git://github.com/dbpedia/extraction-framework.git
-    cd extraction-framework
-    mvn install
-fi
-
-cd dump
+cd $BASE_WDIR/extraction-framework/dump
 
 dumpdate=$(date +%Y%m%d)
 dumpdir=$WDIR/${LANGUAGE}wiki/${dumpdate}
@@ -148,23 +133,13 @@ EOF
 ###
 ### Set up the extractors here
 ###
-###
 # if [[ ",ga,ar,be,bg,bn,ced,cs,cy,da,eo,et,fa,fi,gl,hi,hr,hu,id,ja,lt,lv,mk,mt,sk,sl,sr,tr,ur,vi,war,zh," == *",$LANGUAGE,"* ]]; then #Languages with no disambiguation definitions
 #      echo "extractors=.RedirectExtractor,.MappingExtractor" >> dbpedia.properties
 # else
 #      echo "extractors=.RedirectExtractor,.DisambiguationExtractor,.MappingExtractor" >> dbpedia.properties
 # fi
 
-###
-## Should we do it for every language or maybe a generic line would suffice?
-# echo "extractors=.DisambiguationExtractor,.RedirectExtractor,.MappingExtractor,.TopicalConceptsExtractor" >> dbpedia.properties
-###
-
-echo "extractors.ar=.DisambiguationExtractor,.RedirectExtractor,.MappingExtractor,.TopicalConceptsExtractor" >> dbpedia.properties
-echo "extractors.tr=.DisambiguationExtractor,.RedirectExtractor,.MappingExtractor,.TopicalConceptsExtractor" >> dbpedia.properties
-echo "extractors.ja=.DisambiguationExtractor,.RedirectExtractor,.MappingExtractor,.TopicalConceptsExtractor" >> dbpedia.properties
-echo "extractors.zh=.DisambiguationExtractor,.RedirectExtractor,.MappingExtractor,.TopicalConceptsExtractor" >> dbpedia.properties
-echo "extractors.ko=.DisambiguationExtractor,.RedirectExtractor,.MappingExtractor,.TopicalConceptsExtractor" >> dbpedia.properties
+echo "extractors=.DisambiguationExtractor,.RedirectExtractor,.MappingExtractor,.TopicalConceptsExtractor" >> dbpedia.properties
 
 ../run extraction dbpedia.properties
 
@@ -189,28 +164,17 @@ fi
 # Setting up Spotlight:
 ########################################################################################################
 
-cd $BASE_WDIR
-rm -Rf dbpedia-spotlight
+# cd $BASE_WDIR
+# rm -Rf dbpedia-spotlight
 echo "Setting up DBpedia Spotlight..."
-git clone --depth 1 git@gitlab.fokus.fraunhofer.de:wlu/spotlight-multilanguage.git dbpedia-spotlight
-cd dbpedia-spotlight
-mvn -T 1C -q clean install
 
-
-########################################################################################################
-# Extracting wiki stats:
-########################################################################################################
-
-cd $BASE_WDIR
-rm -Rf wikistatsextractor
-git clone --depth 1 https://github.com/dbpedia-spotlight/wikistatsextractor
 
 # Stop processing if one step fails
 set -e
 
 #Copy results to local:
 cd $BASE_WDIR/wikistatsextractor
-mvn install exec:java -Dexec.args="--output_folder $WDIR $LANGUAGE $2 $4Stemmer $WDIR/dump.xml $WDIR/stopwords.$LANGUAGE.list"
+mvn exec:java -Dexec.args="--output_folder $WDIR $LANGUAGE $2 $4Stemmer $WDIR/dump.xml $WDIR/stopwords.$LANGUAGE.list"
 
 if [ "$blacklist" != "false" ]; then
   echo "Removing blacklist URLs..."
