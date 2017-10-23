@@ -69,6 +69,7 @@ LANGUAGE=`echo $2 | sed "s/_.*//g"`
 
 echo "Language: $LANGUAGE"
 echo "Working directory: $WDIR"
+echo "Base working directory: $BASE_WDIR"
 
 mkdir -p $WDIR
 
