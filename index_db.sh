@@ -141,6 +141,7 @@ EOF
 # fi
 
 echo "extractors=.DisambiguationExtractor,.RedirectExtractor,.MappingExtractor,.TopicalConceptsExtractor" >> dbpedia.properties
+echo "extractors.$LANGUAGE=.DisambiguationExtractor,.RedirectExtractor,.MappingExtractor,.TopicalConceptsExtractor" >> dbpedia.properties
 
 ../run extraction dbpedia.properties
 
